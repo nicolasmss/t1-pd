@@ -59,4 +59,24 @@ public class LockServerImpl implements LockServer {
     public boolean isExclusaoLocked() throws RemoteException {
         return insercaoTrava.isLocked();
     }
+
+    public void waitInsercao() throws RemoteException{
+        try {
+            insercaoTrava.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void waitleitura() throws RemoteException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'waitleitura'");
+    }
+
+    @Override
+    public void waitExclusao() throws RemoteException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'waitExclusao'");
+    }
 }

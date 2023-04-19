@@ -25,4 +25,10 @@ public interface LockServer extends Remote {
     boolean isInsercaoLocked() throws RemoteException;
 
     boolean isExclusaoLocked() throws RemoteException;
+
+    void waitleitura() throws RemoteException;
+
+    void waitInsercao() throws RemoteException;
+    
+    void waitExclusao() throws RemoteException;
 }
