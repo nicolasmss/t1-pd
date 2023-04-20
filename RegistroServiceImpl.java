@@ -11,19 +11,24 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
     public RegistroServiceImpl(LockServer lockServer) throws RemoteException {
         this.records = new ArrayList<>();
         this.lockServer = lockServer;
+        records.add("zero");
+        records.add("um");
+        records.add("dois");
+        records.add("tres");
+        records.add("quatro");
 
 
     }
 
     @Override
-    public synchronized void inserirRegistro(String registro) throws RemoteException {
+    public synchronized String inserirRegistro(String registro) throws RemoteException {
 
         // Obtem a trava de inserção do servidor de travas
         lockServer.adquirirInsercaoTrava();
 
         // Insere o registro na lista
         try {
-            Thread.sleep(5000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -32,17 +37,22 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
         // Libera a trava de inserção do servidor de travas
         lockServer.liberarInsercaoTrava();
 
+        return "inseriu: "+registro;
+
     }
 
     @Override
-    public synchronized void deletarRegistro(int index) throws RemoteException {
+    public synchronized String deletarRegistro(int index) throws RemoteException {
+        if(index>=records.size()){
+            return "delecao invalida";
+        }
         // Obtem a trava de exclusão do servidor de travas
         lockServer.adquirirExclusaoTrava();
         lockServer.adquirirInsercaoTrava();
 
         // Remove o registro da lista
         try {
-            Thread.sleep(5000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -51,10 +61,12 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
         // Libera a trava de exclusão do servidor de travas
         lockServer.liberarInsercaoTrava();
         lockServer.liberarExclusaoTrava();
+
+        return "deletou: "+index;
     }
 
     @Override
-    public synchronized String lerRegistro(int index) throws RemoteException {
+    public synchronized String lerRegistro() throws RemoteException {
         // Obtem a trava de leitura do servidor de travas
 
         lockServer.adquirirLeituraTrava();
@@ -65,11 +77,11 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
         lockServer.liberarLeituraTrava();
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String aqui = records.get(index);// leitura
+        String aqui = records.toString();// leitura
 
         lockServer.adquirirLeituraTrava();
         contLeitor--;
