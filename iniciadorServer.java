@@ -7,7 +7,7 @@ public class iniciadorServer {
 
     public static void main(String[] args) {
         for (int i = 1; i <= 5; i++) {
-            String[] lol = { "localhost", Integer.toString(i) };
+            String[] lol = { "localhost", Integer.toString(i) };//trocar ip "localhost"
             System.out.println("iniciando servidor " + i);
             // Server.main(lol);
             ProcessBuilder pb = new ProcessBuilder("java", "Server", lol[0], lol[1]);

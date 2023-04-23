@@ -29,6 +29,6 @@ public interface LockServer extends Remote {
     void waitleitura() throws RemoteException;
 
     void waitInsercao() throws RemoteException;
-    
+
     void waitExclusao() throws RemoteException;
 }

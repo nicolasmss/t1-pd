@@ -10,6 +10,7 @@ class Client {
 	// Programa cliente para o exemplo "Hello, world!"
 	public static void main(String[] args) {
 		if (args.length != 1) {
+			System.out.println(args[0]);
 			System.out.println("Usage: java AdditionClient <key 1-ler 2-adicionar 3-deletar>");
 			System.exit(1);
 		}
@@ -39,11 +40,11 @@ class Client {
 			e.printStackTrace();
 		}
 
-		//System.out.println(urls);
+		// System.out.println(urls);
 
 		try {
 
-			String url = urls.get(((int) (Math.random()*urls.size())));
+			String url = urls.get(((int) (Math.random() * urls.size())));
 			registroService hello = (registroService) Naming.lookup(url);
 			// System.out.println("escreva 1-ler 2-escrever 3-deletar");
 			int key = Integer.parseInt(args[0]);
@@ -64,7 +65,7 @@ class Client {
 				case 2:
 					System.out.println(url + " escreva algo");
 					String algo = "tuts";
-					System.out.println("escrever: "+algo);
+					System.out.println("escrever: " + algo);
 
 					try {
 						String resposta2 = hello.inserirRegistro(algo);

@@ -17,7 +17,6 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
         records.add("tres");
         records.add("quatro");
 
-
     }
 
     @Override
@@ -28,7 +27,7 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
 
         // Insere o registro na lista
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -37,13 +36,13 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
         // Libera a trava de inserção do servidor de travas
         lockServer.liberarInsercaoTrava();
 
-        return "inseriu: "+registro;
+        return "inseriu: " + registro;
 
     }
 
     @Override
     public synchronized String deletarRegistro(int index) throws RemoteException {
-        if(index>=records.size()){
+        if (index >= records.size()) {
             return "delecao invalida";
         }
         // Obtem a trava de exclusão do servidor de travas
@@ -52,7 +51,7 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
 
         // Remove o registro da lista
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -62,7 +61,7 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
         lockServer.liberarInsercaoTrava();
         lockServer.liberarExclusaoTrava();
 
-        return "deletou: "+index;
+        return "deletou: " + index;
     }
 
     @Override
@@ -77,7 +76,7 @@ public class RegistroServiceImpl extends UnicastRemoteObject implements registro
         lockServer.liberarLeituraTrava();
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

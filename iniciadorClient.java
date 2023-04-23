@@ -16,7 +16,6 @@ public class iniciadorClient {
                 }
             }
             lista.add(op);
-            System.out.println("palavra: " + op);
             if (op <= 6) {
                 op = 1;// ler
             } else if (op <= 8) {
@@ -24,9 +23,10 @@ public class iniciadorClient {
             } else if (op == 9) {
                 op = 3;// deletar
             }
-            String[] lol = { "localhost", Integer.toString(op) };
+            System.out.println("palavra: " + op);
+            String lol = Integer.toString(op);
             System.out.println("iniciando cliente " + i);
-            ProcessBuilder pb = new ProcessBuilder("java", "Client", lol[0], lol[1]);
+            ProcessBuilder pb = new ProcessBuilder("java", "Client", lol);
             pb.inheritIO();
             try {
                 pb.start();
