@@ -41,10 +41,10 @@ class Client {
 		}
 
 		// System.out.println(urls);
+		String url = urls.get(((int) (Math.random() * urls.size())));
 
 		try {
 
-			String url = urls.get(((int) (Math.random() * urls.size())));
 			registroService hello = (registroService) Naming.lookup(url);
 			// System.out.println("escreva 1-ler 2-escrever 3-deletar");
 			int key = Integer.parseInt(args[0]);
@@ -98,6 +98,8 @@ class Client {
 
 		} catch (Exception e) {
 			System.out.println("Client failed:");
+			System.out.println("url: " + url + " args[0]: " + args[0]);
+
 			e.printStackTrace();
 		}
 

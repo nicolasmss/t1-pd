@@ -1,34 +1,15 @@
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+public interface LockServer {
+    void adquirirInsercaoTrava() throws InterruptedException;
 
-public interface LockServer extends Remote {
-    // Método remoto para adquirir a trava de inserção
-    void adquirirInsercaoTrava() throws RemoteException;
+    void liberarInsercaoTrava() throws InterruptedException;
 
-    // Método remoto para liberar a trava de inserção
-    void liberarInsercaoTrava() throws RemoteException;
+    void adquirirExclusaoTrava() throws InterruptedException;
 
-    // Método remoto para adquirir a trava de exclusão
-    void adquirirExclusaoTrava() throws RemoteException;
+    void liberarExclusaoTrava() throws InterruptedException;
 
-    // Método remoto para liberar a trava de exclusão
-    void liberarExclusaoTrava() throws RemoteException;
+    void adquirirLeituraTrava() throws InterruptedException;
 
-    // Método remoto para adquirir a trava de leitura
-    void adquirirLeituraTrava() throws RemoteException;
+    void liberarLeituraTrava() throws InterruptedException;
 
-    // Método remoto para liberar a trava de leitura
-    void liberarLeituraTrava() throws RemoteException;
-
-    boolean isLeituraLocked() throws RemoteException;
-
-    boolean isInsercaoLocked() throws RemoteException;
-
-    boolean isExclusaoLocked() throws RemoteException;
-
-    void waitleitura() throws RemoteException;
-
-    void waitInsercao() throws RemoteException;
-
-    void waitExclusao() throws RemoteException;
+    boolean isExclusaoLocked() throws InterruptedException;
 }

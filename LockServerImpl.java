@@ -1,82 +1,50 @@
-
-// Implementação do servidor de travas
-import java.rmi.RemoteException;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.Semaphore;
 
 public class LockServerImpl implements LockServer {
 
-    private ReentrantLock insercaoTrava;
-    private ReentrantLock exclusaoTrava;
-    private ReentrantLock lerTrava;
+    private Semaphore insercaoTrava;
+    private Semaphore exclusaoTrava;
+    private Semaphore lerTrava;
 
     public LockServerImpl() {
-        this.insercaoTrava = new ReentrantLock();
-        this.exclusaoTrava = new ReentrantLock();
-        this.lerTrava = new ReentrantLock();
+        this.insercaoTrava = new Semaphore(1);
+        this.exclusaoTrava = new Semaphore(1);
+        this.lerTrava = new Semaphore(1);
     }
 
     @Override
-    public void adquirirInsercaoTrava() throws RemoteException {
-        insercaoTrava.lock();
+    public void adquirirInsercaoTrava() throws InterruptedException {
+        insercaoTrava.acquire();
     }
 
     @Override
-    public void liberarInsercaoTrava() throws RemoteException {
-        insercaoTrava.unlock();
+    public void liberarInsercaoTrava() throws InterruptedException {
+        insercaoTrava.release();
     }
 
     @Override
-    public void adquirirExclusaoTrava() throws RemoteException {
-        exclusaoTrava.lock();
+    public void adquirirExclusaoTrava() throws InterruptedException {
+        exclusaoTrava.acquire();
     }
 
     @Override
-    public void liberarExclusaoTrava() throws RemoteException {
-        exclusaoTrava.unlock();
+    public void liberarExclusaoTrava() throws InterruptedException {
+        exclusaoTrava.release();
     }
 
     @Override
-    public void adquirirLeituraTrava() throws RemoteException {
-        lerTrava.lock();
+    public void adquirirLeituraTrava() throws InterruptedException {
+        lerTrava.acquire();
     }
 
     @Override
-    public void liberarLeituraTrava() throws RemoteException {
-        lerTrava.unlock();
+    public void liberarLeituraTrava() throws InterruptedException {
+        lerTrava.release();
     }
 
-    @Override
-    public boolean isLeituraLocked() throws RemoteException {
-        return lerTrava.isLocked();
+    public boolean isExclusaoLocked() throws InterruptedException {
+        System.out.println("permits: " + exclusaoTrava.drainPermits());
+        return 0 == exclusaoTrava.drainPermits();
     }
 
-    @Override
-    public boolean isInsercaoLocked() throws RemoteException {
-        return exclusaoTrava.isLocked();
-    }
-
-    @Override
-    public boolean isExclusaoLocked() throws RemoteException {
-        return insercaoTrava.isLocked();
-    }
-
-    public void waitInsercao() throws RemoteException{
-        try {
-            insercaoTrava.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void waitleitura() throws RemoteException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'waitleitura'");
-    }
-
-    @Override
-    public void waitExclusao() throws RemoteException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'waitExclusao'");
-    }
 }
